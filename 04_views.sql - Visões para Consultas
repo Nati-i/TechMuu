@@ -1,7 +1,6 @@
 -- =============================================
 -- VIEWS (VISÕES)
 -- =============================================
--- Arquivo: 04_views.sql
 -- Descrição: Consultas reutilizáveis para o frontend
 
 -- VIEW 1: Detalhes de cada vaca com informações do produtor E coleira
