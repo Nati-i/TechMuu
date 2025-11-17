@@ -1,0 +1,92 @@
+-- =============================================
+-- PROCEDURES (PROCEDIMENTOS ARMAZENADOS)
+-- =============================================
+-- Descrição: Lógica reutilizável para operações comuns
+
+-- PROCEDURE 1: Atualizar estado reprodutivo de uma vaca
+CREATE OR REPLACE PROCEDURE atualiza_estado_reprodutivo(
+    p_id_vaca INT,
+    p_estado VARCHAR
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE vaca 
+    SET estado_reprodutivo = p_estado 
+    WHERE id_vaca = p_id_vaca;
+    
+    RAISE NOTICE 'Estado reprodutivo da vaca % atualizado para: %', p_id_vaca, p_estado;
+END;
+$$;
+
+-- PROCEDURE 2: Gerar relatório de alertas por período
+CREATE OR REPLACE PROCEDURE relatorio_alertas_periodo(
+    p_data_inicio DATE,
+    p_data_fim DATE
+)
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    v_total_alertas INT;
+    v_alertas_altos INT;
+    v_alertas_resolvidos INT;
+BEGIN
+    SELECT COUNT(*) INTO v_total_alertas
+    FROM alerta
+    WHERE DATE(gerado_em) BETWEEN p_data_inicio AND p_data_fim;
+    
+    SELECT COUNT(*) INTO v_alertas_altos
+    FROM alerta
+    WHERE nivel = 'alto' AND DATE(gerado_em) BETWEEN p_data_inicio AND p_data_fim;
+    
+    SELECT COUNT(*) INTO v_alertas_resolvidos
+    FROM alerta
+    WHERE resolvido = TRUE AND DATE(gerado_em) BETWEEN p_data_inicio AND p_data_fim;
+    
+    RAISE NOTICE '=== RELATÓRIO DE ALERTAS ===';
+    RAISE NOTICE 'Período: % a %', p_data_inicio, p_data_fim;
+    RAISE NOTICE 'Total de alertas: %', v_total_alertas;
+    RAISE NOTICE 'Alertas de nível alto: %', v_alertas_altos;
+    RAISE NOTICE 'Alertas resolvidos: %', v_alertas_resolvidos;
+END;
+$$;
+
+-- PROCEDURE 3: Desativar coleira (para manutenção)
+CREATE OR REPLACE PROCEDURE desativa_coleira(
+    p_id_coleira INT,
+    p_motivo VARCHAR
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE coleira
+    SET status = 'inativa'
+    WHERE id_coleira = p_id_coleira;
+    
+    INSERT INTO alerta (id_vaca, id_coleira, tipo_alerta, descricao, nivel)
+    SELECT v.id_vaca, p_id_coleira, 'coleira desativada', 'Motivo: ' || p_motivo, 'médio'
+    FROM vaca v
+    WHERE v.id_coleira = p_id_coleira;
+    
+    RAISE NOTICE 'Coleira % desativada. Motivo: %', p_id_coleira, p_motivo;
+END;
+$$;
+
+-- PROCEDURE 4: Inserir leitura de sensor (facilita inserts pela API)
+CREATE OR REPLACE PROCEDURE insere_leitura_sensor(
+    p_id_coleira INT,
+    p_id_vaca INT,
+    p_temperatura NUMERIC,
+    p_atividade INT,
+    p_tempo_ruminacao INT,
+    p_bateria INT
+)
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    INSERT INTO leitura_sensor (id_coleira, id_vaca, data_hora, temperatura, atividade, tempo_ruminacao_min, bateria_percent, origem)
+    VALUES (p_id_coleira, p_id_vaca, NOW(), p_temperatura, p_atividade, p_tempo_ruminacao, p_bateria, 'coleira');
+    
+    RAISE NOTICE 'Leitura inserida para coleira % / vaca %', p_id_coleira, p_id_vaca;
+END;
+$$;
