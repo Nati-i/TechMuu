@@ -1,9 +1,9 @@
 -- =============================================
--- VIEWS (VISÕES)
+-- VIEWS (VISÕES) - TECHMUU
 -- =============================================
 -- Descrição: Consultas reutilizáveis para o frontend
 
--- VIEW 1: Detalhes de cada vaca com informações do produtor E coleira
+-- VIEW 1: Detalhes de cada vaca com informações do produtor
 CREATE OR REPLACE VIEW vw_vaca_detalhes AS 
 SELECT
     v.id_vaca,
@@ -22,7 +22,7 @@ FROM vaca v
 JOIN produtor p ON v.id_produtor = p.id_produtor
 LEFT JOIN coleira c ON v.id_coleira = c.id_coleira;
 
--- VIEW 2: Alertas recentes (últimos 7 dias) com info da vaca E coleira
+-- VIEW 2: Alertas recentes (últimos 7 dias)
 CREATE OR REPLACE VIEW vw_alertas_recentes AS 
 SELECT
     a.id_alerta,
@@ -41,7 +41,7 @@ LEFT JOIN coleira c ON a.id_coleira = c.id_coleira
 WHERE a.gerado_em > (now() - INTERVAL '7 days')
 ORDER BY a.gerado_em DESC;
 
--- VIEW 3: Status das coleiras ativas com última leitura
+-- VIEW 3: Status das coleiras ativas
 CREATE OR REPLACE VIEW vw_coleiras_status AS
 SELECT
     c.id_coleira,
@@ -57,7 +57,7 @@ FROM coleira c
 LEFT JOIN vaca v ON c.id_coleira = v.id_coleira
 GROUP BY c.id_coleira, c.serial, c.modelo, c.status, c.bateria_percent, c.ultimo_sync;
 
--- VIEW 4: Leituras recentes com info completa (vaca + coleira)
+-- VIEW 4: Leituras recentes com info completa
 CREATE OR REPLACE VIEW vw_leituras_recentes AS
 SELECT
     ls.id_leitura,
