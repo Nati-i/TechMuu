@@ -1,7 +1,6 @@
 -- =============================================
 -- SCHEMA CRIAÇÃO
 -- =============================================
--- Arquivo: 01_schema.sql
 -- Descrição: Cria o schema e as tabelas base do sistema
 
 DROP SCHEMA IF EXISTS public CASCADE;
