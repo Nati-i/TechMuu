@@ -1,9 +1,10 @@
 -- =============================================
--- FUNÇÕES E TRIGGERS
+-- FUNÇÕES E TRIGGERS - TECHMUU
 -- =============================================
 -- Descrição: Lógica de negócio automatizada
 
 -- TRIGGER 1: Log de alterações em alertas
+-- Registra quem fez o quê e quando em cada alerta
 CREATE OR REPLACE FUNCTION fn_log_alerta()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -21,7 +22,7 @@ FOR EACH ROW
 EXECUTE FUNCTION fn_log_alerta();
 
 -- TRIGGER 2: Detecção automática de temperatura alta
--- Agora registra também qual coleira gerou o alerta
+-- Cria alerta automaticamente quando detecta temperatura > 39°C
 CREATE OR REPLACE FUNCTION fn_verifica_temperatura()
 RETURNS TRIGGER
 LANGUAGE plpgsql
@@ -41,6 +42,7 @@ FOR EACH ROW
 EXECUTE FUNCTION fn_verifica_temperatura();
 
 -- TRIGGER 3: Atualizar último_sync da coleira quando recebe leitura
+-- Mantém informação de quando foi a última comunicação da coleira
 CREATE OR REPLACE FUNCTION fn_atualiza_ultimo_sync()
 RETURNS TRIGGER
 LANGUAGE plpgsql
