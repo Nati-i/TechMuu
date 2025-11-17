@@ -1,5 +1,5 @@
 -- =============================================
--- DADOS DE EXEMPLO
+-- DADOS DE EXEMPLO - TECHMUU
 -- =============================================
 -- Descrição: Insere dados realistas para testes
 
@@ -7,20 +7,20 @@
 -- PRODUTORES
 -- =============================================
 INSERT INTO produtor (nome, email, senha_hash, telefone) VALUES
-('João Silva', 'joao.silva@fazenda.com', 'hash_senha_123', '49987654321'),
-('Maria Santos', 'maria.santos@fazenda.com', 'hash_senha_456', '49987654322'),
-('Pedro Oliveira', 'pedro.oliveira@fazenda.com', 'hash_senha_789', '49987654323');
+('João Silva', 'joao.silva@techmuu.com', 'hash_senha_123', '49987654321'),
+('Maria Santos', 'maria.santos@techmuu.com', 'hash_senha_456', '49987654322'),
+('Pedro Oliveira', 'pedro.oliveira@techmuu.com', 'hash_senha_789', '49987654323');
 
 -- =============================================
 -- COLEIRAS
 -- =============================================
 INSERT INTO coleira (serial, modelo, status, bateria_percent, ultimo_sync) VALUES
-('SN-001-0001A', 'SmartBov V1', 'ativa', 85, NOW() - INTERVAL '5 minutes'),
-('SN-001-0002B', 'SmartBov V1', 'ativa', 92, NOW() - INTERVAL '3 minutes'),
-('SN-001-0003C', 'SmartBov V2', 'ativa', 65, NOW() - INTERVAL '8 minutes'),
-('SN-002-0001A', 'SmartBov V2', 'ativa', 78, NOW() - INTERVAL '2 minutes'),
-('SN-002-0002B', 'SmartBov V1', 'ativa', 88, NOW() - INTERVAL '6 minutes'),
-('SN-003-0001A', 'SmartBov V1', 'inativa', 5, NOW() - INTERVAL '2 days');
+('SN-001-0001A', 'TechMuu V1', 'ativa', 85, NOW() - INTERVAL '5 minutes'),
+('SN-001-0002B', 'TechMuu V1', 'ativa', 92, NOW() - INTERVAL '3 minutes'),
+('SN-001-0003C', 'TechMuu V2', 'ativa', 65, NOW() - INTERVAL '8 minutes'),
+('SN-002-0001A', 'TechMuu V2', 'ativa', 78, NOW() - INTERVAL '2 minutes'),
+('SN-002-0002B', 'TechMuu V1', 'ativa', 88, NOW() - INTERVAL '6 minutes'),
+('SN-003-0001A', 'TechMuu V1', 'inativa', 5, NOW() - INTERVAL '2 days');
 
 -- =============================================
 -- VACAS
@@ -34,10 +34,10 @@ INSERT INTO vaca (id_produtor, id_coleira, identificador, raca, data_nascimento,
 (3, 6, 'BR-789001', 'Holandesa', '2018-06-20', 'seca', 'Coleira com bateria baixa - ATENÇÃO');
 
 -- =============================================
--- LEITURAS DE SENSOR (AGORA COM id_coleira)
+-- LEITURAS DE SENSOR
 -- =============================================
 INSERT INTO leitura_sensor (id_coleira, id_vaca, data_hora, temperatura, atividade, tempo_ruminacao_min, bateria_percent, origem) VALUES
--- Vaca 1 / Coleira 1 - últimas 24h
+-- Vaca 1 - últimas 24h
 (1, 1, NOW() - INTERVAL '24 hours', 38.5, 45, 480, 85, 'coleira'),
 (1, 1, NOW() - INTERVAL '20 hours', 38.6, 52, 485, 85, 'coleira'),
 (1, 1, NOW() - INTERVAL '16 hours', 38.4, 48, 475, 84, 'coleira'),
@@ -46,7 +46,7 @@ INSERT INTO leitura_sensor (id_coleira, id_vaca, data_hora, temperatura, ativida
 (1, 1, NOW() - INTERVAL '4 hours', 38.6, 49, 482, 84, 'coleira'),
 (1, 1, NOW() - INTERVAL '1 hour', 38.8, 51, 488, 85, 'coleira'),
 
--- Vaca 2 / Coleira 2 - últimas 24h
+-- Vaca 2 - últimas 24h
 (2, 2, NOW() - INTERVAL '23 hours', 38.3, 42, 465, 92, 'coleira'),
 (2, 2, NOW() - INTERVAL '19 hours', 38.4, 44, 470, 92, 'coleira'),
 (2, 2, NOW() - INTERVAL '15 hours', 38.5, 43, 468, 91, 'coleira'),
@@ -54,7 +54,7 @@ INSERT INTO leitura_sensor (id_coleira, id_vaca, data_hora, temperatura, ativida
 (2, 2, NOW() - INTERVAL '7 hours', 38.6, 45, 475, 91, 'coleira'),
 (2, 2, NOW() - INTERVAL '3 hours', 38.4, 42, 467, 91, 'coleira'),
 
--- Vaca 3 / Coleira 3 - últimas 24h (com temperatura elevada)
+-- Vaca 3 - últimas 24h
 (3, 3, NOW() - INTERVAL '22 hours', 38.9, 38, 450, 65, 'coleira'),
 (3, 3, NOW() - INTERVAL '18 hours', 39.1, 35, 440, 64, 'coleira'),
 (3, 3, NOW() - INTERVAL '14 hours', 39.0, 36, 445, 64, 'coleira'),
@@ -62,18 +62,18 @@ INSERT INTO leitura_sensor (id_coleira, id_vaca, data_hora, temperatura, ativida
 (3, 3, NOW() - INTERVAL '6 hours', 39.4, 32, 420, 63, 'coleira'),
 (3, 3, NOW() - INTERVAL '2 hours', 39.5, 30, 410, 62, 'coleira'),
 
--- Vaca 4 / Coleira 4 - últimas 24h
+-- Vaca 4 - últimas 24h
 (4, 4, NOW() - INTERVAL '21 hours', 38.6, 55, 495, 78, 'coleira'),
 (4, 4, NOW() - INTERVAL '17 hours', 38.5, 53, 490, 78, 'coleira'),
 (4, 4, NOW() - INTERVAL '13 hours', 38.7, 56, 500, 77, 'coleira'),
 (4, 4, NOW() - INTERVAL '9 hours', 38.4, 52, 485, 77, 'coleira'),
 (4, 4, NOW() - INTERVAL '5 hours', 38.8, 54, 492, 77, 'coleira'),
 
--- Vaca 6 / Coleira 6 - coleira inativa, última leitura há 2 dias
+-- Vaca 6 - coleira inativa, última leitura há 2 dias
 (6, 6, NOW() - INTERVAL '2 days', 37.8, 40, 450, 5, 'coleira');
 
 -- =============================================
--- ALERTAS (AGORA COM id_coleira)
+-- ALERTAS
 -- =============================================
 INSERT INTO alerta (id_vaca, id_coleira, tipo_alerta, descricao, nivel, gerado_em, resolvido) VALUES
 -- Alertas antigos (resolvidos)
