@@ -1,8 +1,7 @@
 -- =============================================
--- SCHEMA CRIAÇÃO
+-- SCHEMA CRIAÇÃO - TECHMUU
 -- =============================================
--- Descrição: Cria o schema e as tabelas base do sistema
-
+-- Descrição: Cria o schema e as tabelas base do sistema TechMuu
 DROP SCHEMA IF EXISTS public CASCADE;
 CREATE SCHEMA public;
 SET search_path TO public;
@@ -42,8 +41,8 @@ CREATE TABLE vaca (
     criado_em           TIMESTAMP DEFAULT current_timestamp
 );
 
--- ALTERAÇÃO: Agora leitura_sensor conecta DIRETO à coleira
--- Assim sabemos qual coleira enviou os dados
+-- Tabela: Leituras de Sensor
+-- Conecta à coleira (origem dos dados) e à vaca (animal monitorado)
 CREATE TABLE leitura_sensor (
     id_leitura          BIGSERIAL PRIMARY KEY,
     id_coleira          INT NOT NULL REFERENCES coleira(id_coleira) ON DELETE CASCADE,
@@ -57,8 +56,8 @@ CREATE TABLE leitura_sensor (
     criado_em           TIMESTAMP DEFAULT current_timestamp
 );
 
--- ALTERAÇÃO: Alertas agora conectam tanto à vaca quanto à coleira
--- Assim sabemos qual vaca está com problema E qual coleira gerou o alerta
+-- Tabela: Alertas
+-- Conecta à vaca (problema) e à coleira (origem do alerta)
 CREATE TABLE alerta(
     id_alerta           BIGSERIAL PRIMARY KEY,
     id_vaca             INT NOT NULL REFERENCES vaca(id_vaca) ON DELETE CASCADE,
@@ -70,6 +69,8 @@ CREATE TABLE alerta(
     resolvido           BOOLEAN DEFAULT FALSE 
 );
 
+-- Tabela: Log de Alertas
+-- Registra todas as alterações em alertas para auditoria
 CREATE TABLE log_alerta(
     id_log          SERIAL PRIMARY KEY,
     id_alerta       INT REFERENCES alerta(id_alerta) ON DELETE SET NULL,
