@@ -1,0 +1,24 @@
+-- =============================================
+-- ÍNDICES
+-- =============================================
+-- Arquivo: 02_indexes.sql
+-- Descrição: Índices para otimizar consultas frequentes
+
+-- Índices de chave estrangeira (melhora JOINs)
+CREATE INDEX idx_vaca_id_produtor ON vaca(id_produtor);
+CREATE INDEX idx_vaca_id_coleira ON vaca(id_coleira);
+CREATE INDEX idx_leitura_sensor_id_vaca ON leitura_sensor(id_vaca);
+CREATE INDEX idx_leitura_sensor_id_coleira ON leitura_sensor(id_coleira);
+CREATE INDEX idx_alerta_id_vaca ON alerta(id_vaca);
+CREATE INDEX idx_alerta_id_coleira ON alerta(id_coleira);
+
+-- Índices para buscas e filtros frequentes
+CREATE INDEX idx_leitura_sensor_data_hora ON leitura_sensor(data_hora DESC);
+CREATE INDEX idx_alerta_gerado_em ON alerta(gerado_em DESC);
+CREATE INDEX idx_alerta_nivel ON alerta(nivel);
+CREATE INDEX idx_coleira_status ON coleira(status);
+CREATE INDEX idx_vaca_identificador ON vaca(identificador);
+
+-- Índices compostos para queries comuns
+CREATE INDEX idx_leitura_sensor_coleira_data ON leitura_sensor(id_coleira, data_hora DESC);
+CREATE INDEX idx_alerta_vaca_resolvido ON alerta(id_vaca, resolvido);
