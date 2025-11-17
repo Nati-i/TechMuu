@@ -1,7 +1,6 @@
 -- =============================================
 -- FUNÇÕES E TRIGGERS
 -- =============================================
--- Arquivo: 03_triggers.sql
 -- Descrição: Lógica de negócio automatizada
 
 -- TRIGGER 1: Log de alterações em alertas
