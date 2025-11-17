@@ -1,0 +1,61 @@
+-- =============================================
+-- FUNÇÕES E TRIGGERS
+-- =============================================
+-- Arquivo: 03_triggers.sql
+-- Descrição: Lógica de negócio automatizada
+
+-- TRIGGER 1: Log de alterações em alertas
+CREATE OR REPLACE FUNCTION fn_log_alerta()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN 
+    INSERT INTO log_alerta(id_alerta, acao)
+    VALUES (COALESCE(NEW.id_alerta, OLD.id_alerta), TG_OP);
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER tg_log_alerta 
+AFTER INSERT OR UPDATE OR DELETE ON alerta
+FOR EACH ROW
+EXECUTE FUNCTION fn_log_alerta();
+
+-- TRIGGER 2: Detecção automática de temperatura alta
+-- Agora registra também qual coleira gerou o alerta
+CREATE OR REPLACE FUNCTION fn_verifica_temperatura()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN 
+    IF NEW.temperatura > 39 THEN 
+        INSERT INTO alerta (id_vaca, id_coleira, tipo_alerta, descricao, nivel)
+        VALUES (NEW.id_vaca, NEW.id_coleira, 'temperatura alta', 'temperatura acima do normal', 'alto');
+    END IF;
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER tg_verifica_temperatura 
+AFTER INSERT ON leitura_sensor
+FOR EACH ROW
+EXECUTE FUNCTION fn_verifica_temperatura();
+
+-- TRIGGER 3: Atualizar último_sync da coleira quando recebe leitura
+CREATE OR REPLACE FUNCTION fn_atualiza_ultimo_sync()
+RETURNS TRIGGER
+LANGUAGE plpgsql
+AS $$
+BEGIN
+    UPDATE coleira 
+    SET ultimo_sync = NEW.data_hora,
+        bateria_percent = NEW.bateria_percent
+    WHERE id_coleira = NEW.id_coleira;
+    RETURN NEW;
+END;
+$$;
+
+CREATE TRIGGER tg_atualiza_ultimo_sync
+AFTER INSERT ON leitura_sensor
+FOR EACH ROW
+EXECUTE FUNCTION fn_atualiza_ultimo_sync();
