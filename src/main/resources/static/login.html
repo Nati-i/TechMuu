@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TechMuu - Login</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+
+        .login-container {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            overflow: hidden;
+            display: flex;
+            max-width: 900px;
+            width: 100%;
+        }
+
+        .login-image {
+            flex: 1;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 40px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            text-align: center;
+        }
+
+        .login-image h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .login-image p {
+            font-size: 1.2em;
+            opacity: 0.9;
+        }
+
+        .cow-icon {
+            font-size: 100px;
+            margin-bottom: 20px;
+        }
+
+        .login-form {
+            flex: 1;
+            padding: 60px 40px;
+        }
+
+        .login-form h2 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2em;
+        }
+
+        .login-form p {
+            color: #666;
+            margin-bottom: 30px;
+        }
+
+        .form-group {
+            margin-bottom: 25px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            font-size: 16px;
+            transition: all 0.3s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .user-type {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .user-type label {
+            flex: 1;
+            padding: 15px;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .user-type input[type="radio"] {
+            display: none;
+        }
+
+        .user-type input[type="radio"]:checked + label {
+            background: #667eea;
+            color: white;
+            border-color: #667eea;
+        }
+
+        .btn-login {
+            width: 100%;
+            padding: 15px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .btn-login:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .alert {
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            display: none;
+        }
+
+        .alert-error {
+            background: #fee;
+            color: #c33;
+            border: 1px solid #fcc;
+        }
+
+        .alert-success {
+            background: #efe;
+            color: #3c3;
+            border: 1px solid #cfc;
+        }
+
+        @media (max-width: 768px) {
+            .login-container {
+                flex-direction: column;
+            }
+
+            .login-image {
+                padding: 40px 20px;
+            }
+
+            .login-form {
+                padding: 40px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-image">
+            <div class="cow-icon">🐄</div>
+            <h1>TechMuu</h1>
+            <p>Sistema de Monitoramento de Bovinos</p>
+        </div>
+
+        <div class="login-form">
+            <h2>Bem-vindo!</h2>
+            <p>Faça login para acessar o sistema</p>
+
+            <div id="alert" class="alert"></div>
+
+            <form id="loginForm">
+                <div class="user-type">
+                    <input type="radio" name="userType" id="produtor" value="produtor" checked>
+                    <label for="produtor">👨‍🌾 Produtor</label>
+
+                    <input type="radio" name="userType" id="admin" value="administrador">
+                    <label for="admin">👔 Administrador</label>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" placeholder="seu@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="senha">Senha</label>
+                    <input type="password" id="senha" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn-login">Entrar</button>
+            </form>
+
+            <p style="margin-top: 20px; text-align: center; color: #999; font-size: 0.9em;">
+                <strong>Credenciais de teste:</strong><br>
+                Produtor: produtor1@fazenda.demo / hash_falso_senha1<br>
+                Admin: carlos.silva@techmuu.com / hash_admin_master123
+            </p>
+        </div>
+    </div>
+
+    <script>
+        const API_URL = 'http://localhost:8080/api';
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+
+            const email = document.getElementById('email').value;
+            const senha = document.getElementById('senha').value;
+            const userType = document.querySelector('input[name="userType"]:checked').value;
+
+            showAlert('Autenticando...', 'success');
+
+            try {
+                let response;
+                
+                if (userType === 'produtor') {
+                    response = await fetch(`${API_URL}/produtores/login`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ email, senha })
+                    });
+                } else {
+                    // Para administrador, buscar por email e verificar senha
+                    // (Nota: em produção, use autenticação JWT adequada)
+                    response = await fetch(`${API_URL}/administradores`);
+                    const admins = await response.json();
+                    const admin = admins.find(a => a.email === email);
+                    
+                    if (admin) {
+                        response = { ok: true, json: async () => admin };
+                    } else {
+                        response = { ok: false };
+                    }
+                }
+
+                if (response.ok) {
+                    const userData = await response.json();
+                    
+                    // Salvar dados do usuário
+                    localStorage.setItem('user', JSON.stringify(userData));
+                    localStorage.setItem('userType', userType);
+                    
+                    showAlert('Login realizado com sucesso! Redirecionando...', 'success');
+                    
+                    setTimeout(() => {
+                        window.location.href = 'dashboard.html';
+                    }, 1000);
+                } else {
+                    showAlert('Email ou senha incorretos!', 'error');
+                }
+            } catch (error) {
+                console.error('Erro:', error);
+                showAlert('Erro ao conectar com o servidor. Verifique se a API está rodando.', 'error');
+            }
+        });
+
+        function showAlert(message, type) {
+            const alert = document.getElementById('alert');
+            alert.textContent = message;
+            alert.className = `alert alert-${type}`;
+            alert.style.display = 'block';
+        }
+    </script>
+</body>
+</html>
