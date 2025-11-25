@@ -110,28 +110,6 @@ O banco já contempla a **parte reprodutiva** do rebanho pelo campo `estado_repr
 * Isolamento de dados por produtor
 * Controle de acesso baseado em **roles** (`gestor_produtores`, `tecnico_suporte`)
 
----
-
-## Estrutura do Repositório
-
-```
-TechMuuu/
-├─ Database/
-│  ├─ Modelo ER.png
-│  ├─ Procedures.sql
-│  ├─ Roles_Permissoes.sql
-│  ├─ Schema_Tabela.sql
-│  ├─ Script.sql
-│  └─ Script_Povoamento.sql
-├─ Diagramas/
-│  ├─ Diagrama_Atividade.png
-│  ├─ Diagrama_Sequencia.png
-│  ├─ Diagrama_Caso_de_Uso.png
-│  └─ Diagrama_Classes.png
-├─ Frontend/
-│  └─ [Arquivos do front-end]
-└─ README.md
-```
 
 ---
 
