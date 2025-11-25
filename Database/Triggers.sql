@@ -38,14 +38,14 @@ AFTER INSERT ON leitura_sensor
 FOR EACH ROW
 EXECUTE FUNCTION fn_verifica_temperatura();
 
--- NOVA FUNÇÃO: Registra ações de administradores automaticamente
 CREATE OR REPLACE FUNCTION fn_log_acao_administrador()
 RETURNS TRIGGER
 LANGUAGE plpgsql
 SET search_path = public, pg_temp
 AS $$
 BEGIN
-    IF NEW.resolvido = TRUE AND (OLD.resolvido IS NULL OR OLD.resolvido = FALSE) THEN
+
+    IF NEW.resolvido = TRUE AND (OLD.resolvido IS NULL OR OLD.resolvido = FALSE) AND NEW.resolvido_por IS NOT NULL THEN
         INSERT INTO log_administrador (id_administrador, acao, descricao)
         VALUES (
             NEW.resolvido_por,
