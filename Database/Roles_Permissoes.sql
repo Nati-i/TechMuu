@@ -22,3 +22,4 @@ GRANT INSERT ON vaca TO gestor_produtores;
 GRANT UPDATE (raca, data_nascimento, estado_reprodutivo, observacoes) ON vaca TO gestor_produtores;
 
 GRANT ALL PRIVILEGES ON ALL TABLES IN SCHEMA public TO admin_sistema;
+
