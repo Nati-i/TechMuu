@@ -115,8 +115,7 @@ O banco já contempla a **parte reprodutiva** do rebanho pelo campo `estado_repr
 
 ## Contribuições
 
-* **Equipe:** [Seu Nome / Integrantes]
-* **Orientador:** [Nome do Professor]
+* **Nome:** Natani Gabriela Gayardo
 * **Data:** 2025
 
 ---
