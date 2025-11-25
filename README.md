@@ -15,7 +15,6 @@
 * [Arquitetura do Banco de Dados](#arquitetura-do-banco-de-dados)
 * [Tecnologias Utilizadas](#tecnologias-utilizadas)
 * [Demonstração do Sistema](#demonstração-do-sistema)
-* [TechMuu-Login](techmuu-login)
 * [Segurança](#segurança)
 * [Estrutura do Repositório](#estrutura-do-repositório)
 * [Contribuições](#contribuições)
