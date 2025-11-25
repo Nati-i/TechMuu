@@ -65,12 +65,10 @@ O projeto integra **hardware e software**, utilizando coleiras inteligentes que 
 
 ## Requisitos Não Funcionais
 
-1. Atualização de dados em **menos de 5 segundos**.
-2. Plataforma disponível **99,5% do tempo**.
-3. **Segurança e isolamento** dos dados por produtor, comunicação criptografada.
-4. Interface **intuitiva e responsiva**.
-5. Suporte a crescimento de **50% no número de clientes e coleiras** sem reestruturação.
-6. **Nenhuma perda de dados** sob condições normais de rede.
+1. **Segurança e isolamento** dos dados por produtor, comunicação criptografada.
+2. Interface **intuitiva e responsiva**.
+3. Suporte a crescimento de **50% no número de clientes e coleiras** sem reestruturação.
+4. **Nenhuma perda de dados** sob condições normais de rede.
 
 ---
 
